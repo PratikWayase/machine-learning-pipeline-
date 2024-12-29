@@ -1,11 +1,12 @@
 # machine-learning-pipeline-
 
+---
 title: Drug Classification
-emoji: 😻
-colorFrom: gray
-colorTo: gray
+emoji: 💊
+colorFrom: yellow
+colorTo: red
 sdk: gradio
-sdk_version: 5.9.1
-app_file: app.py
+sdk_version: 4.16.0
+app_file: drug_app.py
 pinned: false
 license: apache-2.0
