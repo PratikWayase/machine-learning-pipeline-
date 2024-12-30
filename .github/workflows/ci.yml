@@ -1,41 +1,30 @@
-name: CI Pipeline
-
+name: Continuous Integration
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
-  workflow_dispatch: # Manual trigger
-
+    branches: [ "main" ]
+  workflow_dispatch:
+  
+permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    # Step 1: Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    # Step 2: Set up Python environment
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.8" # Specify your desired Python version
-
-    # Step 3: Install dependencies
-    - name: Install dependencies
-      run: make install
-
-    # Step 4: Format the code
-    - name: Code formatting
-      run: make format
-
-    # Step 5: Train the model
-    - name: Train the model
-      run: make train
-
-    # Step 6: Evaluate the model and generate report
-    - name: Evaluate the model
-      run: make eval
+      - uses: actions/checkout@v3
+      - uses: iterative/setup-cml@v2
+      - name: Install Packages
+        run: make install
+      - name: Format
+        run: make format
+      - name: Train
+        run: make train
+      - name: Evaluation
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: make eval
+      - name: Update Branch
+        env:
+          NAME: ${{ secrets.USER_NAME }}
+          EMAIL: ${{ secrets.USER_EMAIL }}
+        run: make update-branch USER_NAME=$NAME USER_EMAIL=$EMAIL
