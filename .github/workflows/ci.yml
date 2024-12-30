@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.8" # Specify your desired Python version
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: make install
+
+    # Step 4: Format the code
+    - name: Code formatting
+      run: make format
+
+    # Step 5: Train the model
+    - name: Train the model
+      run: make train
+
+    # Step 6: Evaluate the model and generate report
+    - name: Evaluate the model
+      run: make eval
