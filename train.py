@@ -76,7 +76,5 @@ sio.dump(pipe, "Model/drug_pipeline.skops")
 
 import skops.io as sio
 
-loaded_model = sio.load(
-    r"C:\Users\prati\machine-learning-pipeline-\Model\drug_pipeline.skops",
-    trusted=["pickle", "numpy", "sklearn", "numpy.dtype"],
-)
+loaded_model = sio.load("Model/drug_pipeline.skops", trusted=["pickle", "numpy", "sklearn", "numpy.dtype"])
+
