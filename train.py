@@ -1,4 +1,3 @@
-
 import pandas as pd
 import skops.io as sio
 from sklearn.compose import ColumnTransformer
@@ -24,8 +23,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 ## Pipeline
-cat_col = [1,2,3]
-num_col = [0,4]
+cat_col = [1, 2, 3]
+num_col = [0, 4]
 
 transform = ColumnTransformer(
     [
@@ -52,9 +51,10 @@ f1 = f1_score(y_test, predictions, average="macro")
 
 print("Accuracy: ", str(round(accuracy, 2) * 100) + "%", "F1: ", round(f1, 2))
 
-with open(r"C:\Users\prati\machine-learning-pipeline-\Result\metrics.txt", "w") as outfile:
+with open(
+    r"C:\Users\prati\machine-learning-pipeline-\Result\metrics.txt", "w"
+) as outfile:
     outfile.write(f"\nAccuracy = {round(accuracy,2)}, F1 Score = {round(f1,2)}.")
-
 
 
 import matplotlib.pyplot as plt
@@ -64,8 +64,10 @@ predictions = pipe.predict(X_test)
 cm = confusion_matrix(y_test, predictions, labels=pipe.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=pipe.classes_)
 disp.plot()
-plt.savefig(r"C:\Users\prati\machine-learning-pipeline-\Result\model_results.png", dpi=120)
-plt.close() 
+plt.savefig(
+    r"C:\Users\prati\machine-learning-pipeline-\Result\model_results.png", dpi=120
+)
+plt.close()
 
 
 import skops.io as sio
@@ -75,6 +77,6 @@ sio.dump(pipe, "Model/drug_pipeline.skops")
 import skops.io as sio
 
 loaded_model = sio.load(
-    r"C:\Users\prati\machine-learning-pipeline-\Model\drug_pipeline.skops", 
-    trusted=['pickle', 'numpy', 'sklearn', 'numpy.dtype']
+    r"C:\Users\prati\machine-learning-pipeline-\Model\drug_pipeline.skops",
+    trusted=["pickle", "numpy", "sklearn", "numpy.dtype"],
 )
