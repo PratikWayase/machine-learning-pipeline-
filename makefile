@@ -10,10 +10,10 @@ train:
 
 eval:
 	echo "## Model Metrics" > report.md
-	dir .\Result
-	if exist .\Result\metrics.txt (type .\Result\metrics.txt >> report.md)
+	ls ./Result
+	if [ -f ./Result/metrics.txt ]; then cat ./Result/metrics.txt >> report.md; fi
 	echo "## Confusion Matrix Plot" >> report.md
-	echo "![Confusion Matrix](.\Result\model_results.png)" >> report.md
+	echo "![Confusion Matrix](./Result/model_results.png)" >> report.md
 
 update-branch:
 	git fetch origin &&\
