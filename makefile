@@ -21,3 +21,17 @@ update-branch:
 	git pull origin main &&\
 	git checkout - &&\
 	git merge main
+
+hf-login:
+	git pull origin main
+	pip install -U "huggingface_hub[cli]"
+	huggingface-cli login --token $(HF)
+
+push-hub:
+	huggingface-cli upload Galaxyman/drug-classification ./App --repo-type=space --commit-message="Sync App files"
+	huggingface-cli upload Galaxyman/drug-classification ./Model/drug_pipeline.skops --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload Galaxyman/drug-classification ./Result/metrics.txt --repo-type=space --commit-message="Sync Model"
+
+deploy: hf-login push-hub
+
+all: install format train eval update-branch deploy
