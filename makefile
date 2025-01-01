@@ -29,8 +29,8 @@ hf-login:
 
 push-hub:
 	huggingface-cli upload Galaxyman/drug-classification ./App --repo-type=space --commit-message="Sync App files"
-	huggingface-cli upload Galaxyman/drug-classification ./Model/drug_pipeline.skops --repo-type=space --commit-message="Sync Model"
-	huggingface-cli upload Galaxyman/drug-classification ./Result/metrics.txt --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload Galaxyman/drug-classification ./Model /Model --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload Galaxyman/drug-classification ./Result /Metrics --repo-type=space --commit-message="Sync Model"
 
 deploy: hf-login push-hub
 
